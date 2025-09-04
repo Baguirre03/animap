@@ -18,12 +18,12 @@ export function useSections() {
     queryKey: ["sections"],
     // queryFn: () => sectionQueries.getSections(),
     queryFn: () => {
-      // For development: create 100 mock sections if database is empty
+      // For development: create 400 mock sections (20x20)
       const mockSections: Section[] = [];
-      for (let y = 0; y < 10; y++) {
-        for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < 50; x++) {
           mockSections.push({
-            id: y * 10 + x + 1,
+            id: y * 50 + x + 1,
             name: `Section ${x}-${y}`,
             position_x: x,
             position_y: y,

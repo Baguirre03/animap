@@ -1,15 +1,15 @@
 "use client";
 
 import { useSections } from "@/hooks/useSections";
-import { useZoomPan } from "@/hooks/useZoomPan";
+// import { useZoomPan } from "@/hooks/useZoomPan";
 import SectionGrid from "@/components/board/SectionGrid";
 
 export default function Home() {
   const { sections, isLoading } = useSections();
-  const { zoom, resetView, getTransformStyle, getContainerProps } = useZoomPan({
-    minZoom: 1.0, // Can't zoom out below 100%
-    maxZoom: 10.0, // Can zoom in up to 1000%
-  });
+  // const { zoom, resetView, getTransformStyle, getContainerProps } = useZoomPan({
+  //   minZoom: 1.0, // Can't zoom out below 100%
+  //   maxZoom: 10.0, // Can zoom in up to 1000%
+  // });
 
   if (isLoading) {
     return (
@@ -20,9 +20,12 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full h-screen bg-gray-100 overflow-hidden">
+    <div
+      className="w-full h-screen bg-gray-100 overflow-hidden m-0 p-0"
+      style={{ boxSizing: "border-box" }}
+    >
       {/* Controls - only show when zoomed in */}
-      {zoom > 1 && (
+      {/* {zoom > 1 && (
         <div className="absolute top-4 left-4 z-10 flex gap-2">
           <button
             onClick={resetView}
@@ -34,18 +37,12 @@ export default function Home() {
             Zoom: {Math.round(zoom * 100)}%
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Main container */}
-      <div
-        {...getContainerProps()}
-        className="w-full h-full"
-        style={{ cursor: zoom > 1 ? "grab" : "default" }}
-      >
+      <div className="w-full h-full">
         {/* Sections grid */}
-        <div style={getTransformStyle()}>
-          <SectionGrid sections={sections} />
-        </div>
+        <SectionGrid sections={sections} />
       </div>
     </div>
   );
