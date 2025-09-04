@@ -16,7 +16,29 @@ export function useSections() {
     refetch,
   } = useQuery({
     queryKey: ["sections"],
-    queryFn: () => sectionQueries.getSections(),
+    // queryFn: () => sectionQueries.getSections(),
+    queryFn: () => {
+      // For development: create 100 mock sections if database is empty
+      const mockSections: Section[] = [];
+      for (let y = 0; y < 10; y++) {
+        for (let x = 0; x < 10; x++) {
+          mockSections.push({
+            id: y * 10 + x + 1,
+            name: `Section ${x}-${y}`,
+            position_x: x,
+            position_y: y,
+            created_at: new Date().toISOString(),
+          });
+        }
+      }
+
+      // // Try real query first, fallback to mock data if it fails
+      // return sectionQueries.getSections().catch(() => {
+      //   console.log("Using mock sections data for development");
+      //   return mockSections;
+      // });
+      return mockSections;
+    },
     staleTime: 10 * 60 * 1000, // Consider sections fresh for 10 minutes
   });
 
