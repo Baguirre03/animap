@@ -51,44 +51,48 @@ export default function SectionGrid({ sections }: SectionGridProps) {
   }
 
   return (
-    <div
-      className="grid"
-      style={{
-        gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
-        gridTemplateRows: `repeat(${gridHeight}, 1fr)`,
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-        boxSizing: "border-box",
-      }}
-    >
-      {gridCells.map(({ key, section, x, y }) => (
-        <div
-          key={key}
-          className={`outline outline-gray-300 ${
-            section
-              ? "bg-blue-100 hover:bg-blue-200 cursor-pointer transition-colors"
-              : "bg-gray-50"
-          }`}
-          onClick={section ? () => handleSectionClick(section) : undefined}
-        >
-          {section && (
-            <div className="flex flex-col items-center justify-center h-full p-1">
-              <div className="text-xs font-semibold text-gray-800 text-center leading-tight"></div>
-              {gridWidth <= 15 && <div className="text-xs text-gray-600"></div>}
-              <div
-                className={`${
-                  gridWidth > 15 ? "mt-0.5 w-4 h-4" : "mt-1 w-6 h-6"
-                } bg-white border border-gray-400 rounded`}
-              >
-                {/* Placeholder for section preview */}
-                <div className="w-full h-full bg-gradient-to-br from-blue-300 to-purple-300 rounded" />
+    <div className="w-screen h-screen flex items-center justify-center">
+      <div
+        className="grid"
+        style={{
+          gridTemplateColumns: `repeat(${gridWidth}, 1fr)`,
+          gridTemplateRows: `repeat(${gridHeight}, 1fr)`,
+          width: "min(100vw, 100vh)",
+          height: "min(100vw, 100vh)",
+          margin: 0,
+          padding: 0,
+          boxSizing: "border-box",
+        }}
+      >
+        {gridCells.map(({ key, section, x, y }) => (
+          <div
+            key={key}
+            className={`outline outline-gray-300 ${
+              section
+                ? "bg-blue-100 hover:bg-blue-200 cursor-pointer transition-colors"
+                : "bg-gray-50"
+            }`}
+            onClick={section ? () => handleSectionClick(section) : undefined}
+          >
+            {section && (
+              <div className="flex flex-col items-center justify-center h-full p-1">
+                <div className="text-xs font-semibold text-gray-800 text-center leading-tight"></div>
+                {gridWidth <= 15 && (
+                  <div className="text-xs text-gray-600"></div>
+                )}
+                <div
+                  className={`${
+                    gridWidth > 15 ? "mt-0.5 w-4 h-4" : "mt-1 w-6 h-6"
+                  } bg-white border border-gray-400 rounded`}
+                >
+                  {/* Placeholder for section preview */}
+                  <div className="w-full h-full bg-gradient-to-br from-blue-300 to-purple-300 rounded" />
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      ))}
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
